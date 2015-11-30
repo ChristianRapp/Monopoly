@@ -1,5 +1,5 @@
 
-public class GoToJail
+public class GoToJail extends NotPurchasable
 	{
 
 		public void sendToJail(Object Player)

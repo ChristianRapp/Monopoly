@@ -1,5 +1,5 @@
 
-public class Go
+public class Go extends NotPurchasable
 	{
 
 		public void passGo(Object player)

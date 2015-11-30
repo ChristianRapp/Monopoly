@@ -1,11 +1,14 @@
 
-public class CommunityChest
+public class CommunityChest extends NotPurchasable
 	{
 
-		public void drawCard()
+		public void drawAndReadCard(Object player)
 		{
-		//get 
+		//get the top card
+		//give card to player
+		//read card
 		}
+		
 		
 		
 	}

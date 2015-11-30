@@ -19,5 +19,11 @@ public class Property extends Square
 			
 		}
 		
+		public void payRent(Object player)
+		{
+			
+			//player balance -=rent;
+			
+		}
 		
 	}

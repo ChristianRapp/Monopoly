@@ -1,5 +1,5 @@
 
-public class Tax
+public class Tax extends NotPurchasable
 	{
 		String typeTax;
 		int taxAmount;
