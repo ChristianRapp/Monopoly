@@ -1,9 +1,9 @@
 
-public class Utility
+public class Utility extends NotColored
 	{
 
-		@Override
-		rent = calculateRent(//diceRoll);
+		
+		
 		
 		public int calculateRent(int diceRoll)
 		{

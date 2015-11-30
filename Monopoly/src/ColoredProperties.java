@@ -1,5 +1,5 @@
 
-public class ColoredProperties
+public class ColoredProperties extends Property
 	{
 
 		protected String color;
