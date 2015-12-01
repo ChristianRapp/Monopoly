@@ -1,15 +1,15 @@
 
 public class Tax extends NotPurchasable
 	{
-		String typeTax;
-		int taxAmount;
+		private int taxAmount;
 		
-		public Tax()
+		public Tax(String n, int t)
 		{
-			
+		name = n;	
+		taxAmount = t;
 		}
 		
-		public void payTax(int taxAmount, Object player, String name)
+		public void payTax(int taxAmount, Object player)
 		{
 			//player money -= taxAmount
 			
