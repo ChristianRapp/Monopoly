@@ -1,5 +1,5 @@
 
-public class ColoredProperties extends Property
+public class ColoredProperty extends Property
 	{
 
 		private String color;
@@ -7,7 +7,7 @@ public class ColoredProperties extends Property
 		private int numberOfSameColor;
 		private boolean isMonopoly;
 		
-		public ColoredProperties( int bp, int r,int m, String c )
+		public ColoredProperty( int bp, int r,int m, String c, String name )
 		{
 			buyPrice = bp;
 			rent = r;

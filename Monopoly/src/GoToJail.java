@@ -7,7 +7,7 @@ public class GoToJail extends NotPurchasable
 			//player pos = jail
 		}
 		
-		public GoToJail()
+		public GoToJail( String name)
 		{
 			
 		}

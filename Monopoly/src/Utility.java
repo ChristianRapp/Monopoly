@@ -2,7 +2,7 @@
 public class Utility extends NotColored
 	{
 		
-		public Utility(int bp, int m)
+		public Utility(int bp, int m, String name)
 			{
 				
 				buyPrice = bp;

@@ -7,7 +7,7 @@ public class Go extends NotPurchasable
 			
 		}
 		
-		public void passGo(Player player)
+		public void passGo(Player player, String name)
 		{
 			player.setBalance(player.getBalance()+200);
 		}

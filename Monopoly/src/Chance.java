@@ -2,7 +2,7 @@
 public class Chance extends NotPurchasable
 	{
 		
-		public Chance()
+		public Chance(String name)
 		{
 			
 		}

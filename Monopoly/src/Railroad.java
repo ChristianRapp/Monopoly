@@ -2,7 +2,7 @@
 public class Railroad extends NotColored
 	{
 
-		public Railroad(int bp, int r, int m)
+		public Railroad(int bp, int r, int m, String name)
 		{
 			
 			buyPrice = bp;

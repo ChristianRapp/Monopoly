@@ -9,7 +9,7 @@ public class Tax extends NotPurchasable
 			
 		}
 		
-		public void payTax(int taxAmount, Object player)
+		public void payTax(int taxAmount, Object player, String name)
 		{
 			//player money -= taxAmount
 			
