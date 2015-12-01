@@ -20,9 +20,14 @@ public class Runner
 						System.out.println("You are now on " + board.get(players.get(0).getLocation()).getName());
 						
 						if(board.get(players.get(0).getLocation()) instanceof Property)
-						{
+							{
 							System.out.println("Would you like to purchase this property for "+ board.get(0).getRent());
-						}
+							}
+						
+						if(board.get(players.get(0).getLocation()) instanceof Tax)
+							{
+								
+							}
 						
 					}
 				
