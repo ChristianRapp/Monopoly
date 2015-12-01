@@ -1,10 +1,15 @@
 
 public class Go extends NotPurchasable
 	{
-
-		public void passGo(Object player)
+		
+		public Go()
 		{
-			//add 200 to player
+			
+		}
+		
+		public void passGo(Player player)
+		{
+			player.setBalance(player.getBalance()+200);
 		}
 		
 	}
