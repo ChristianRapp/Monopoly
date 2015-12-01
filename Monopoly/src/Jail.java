@@ -2,8 +2,33 @@
 public class Jail extends NotPurchasable
 	{
 
-		int turnsInJail;
+		private int turnsInJail;
 		
-		boolean isJustPassingBy;
+		private boolean isJustPassingBy;
+		
+		public Jail()
+		{
+			
+		}
+
+		public int getTurnsInJail()
+			{
+				return turnsInJail;
+			}
+
+		public void setTurnsInJail(int turnsInJail)
+			{
+				this.turnsInJail = turnsInJail;
+			}
+
+		public boolean isJustPassingBy()
+			{
+				return isJustPassingBy;
+			}
+
+		public void setJustPassingBy(boolean isJustPassingBy)
+			{
+				this.isJustPassingBy = isJustPassingBy;
+			}
 		
 	}

@@ -9,6 +9,10 @@ public class CommunityChest extends NotPurchasable
 		//read card
 		}
 		
+		public CommunityChest()
+		{
+			
+		}
 		
 		
 	}

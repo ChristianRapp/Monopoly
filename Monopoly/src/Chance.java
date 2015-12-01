@@ -3,6 +3,9 @@ public class Chance extends NotPurchasable
 	{
 		
 		public Chance()
+		{
+			
+		}
 		
 		public void drawAndReadChanceCard(Object player)
 			{
