@@ -11,7 +11,13 @@ public class Player
 		private boolean inJail;
 		private int location;
 		
-		
+		public Player(String n)
+		{
+			name = n;
+			balance = 1500;
+			inJail = false;
+			location = 0;
+		}
 		
 		public void useCard()
 		{
@@ -30,11 +36,19 @@ public class Player
 			//ask what to trade	
 		}
 		
-		public void rollDice()
+		public int rollDice1()
 		{
 			int d1 = (int)(Math.random()*6)+1;
-			int d2 = (int)(Math.random()*6)+1;
+			
+			return d1;
 		}
+		
+		public int rollDice2()
+			{
+				int d2 = (int)(Math.random()*6)+1;
+				
+				return d2;
+			}
 		
 		public void doTurn(Player player, int d1, int d2)
 		{

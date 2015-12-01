@@ -2,9 +2,9 @@
 public class Chance extends NotPurchasable
 	{
 		
-		public Chance(String name)
+		public Chance(String n)
 		{
-			
+			name  =n;
 		}
 		
 		public void drawAndReadChanceCard(Object player)

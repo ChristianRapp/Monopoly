@@ -7,8 +7,9 @@ public class ColoredProperty extends Property
 		private int numberOfSameColor;
 		private boolean isMonopoly;
 		
-		public ColoredProperty( int bp, int r,int m, String c, String name )
+		public ColoredProperty( int bp, int r,int m, String c, String n )
 		{
+			name = n;
 			buyPrice = bp;
 			rent = r;
 			mortgage = m;

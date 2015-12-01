@@ -2,9 +2,9 @@
 public class Utility extends NotColored
 	{
 		
-		public Utility(int bp, int m, String name)
+		public Utility(int bp, int m, String n)
 			{
-				
+				name = n;
 				buyPrice = bp;
 				rent = 0;
 				mortgage = m;

@@ -7,9 +7,9 @@ public class GoToJail extends NotPurchasable
 			//player pos = jail
 		}
 		
-		public GoToJail( String name)
+		public GoToJail( String n)
 		{
-			
+			name = n;
 		}
 		
 	}

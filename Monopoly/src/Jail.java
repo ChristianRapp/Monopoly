@@ -6,9 +6,9 @@ public class Jail extends NotPurchasable
 		
 		private boolean isJustPassingBy;
 		
-		public Jail( String name)
+		public Jail( String n)
 		{
-			
+			name  =n;
 		}
 
 		public int getTurnsInJail()
