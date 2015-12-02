@@ -53,6 +53,10 @@ public class Player
 		public void doTurn(Player player, int d1, int d2)
 		{
 			int temp = player.getLocation();
+			if((temp + d1 + d2)>= 40)
+			{
+				player.setBalance(player.getBalance()+200);
+			}
 			int pos = (temp + d1 + d2)%40;
 			player.setLocation(pos);
 			
@@ -73,9 +77,9 @@ public class Player
 				return properties;
 			}
 
-		public void setProperties(ArrayList<Property> properties)
+		public void setProperties(Property property, Player player)
 			{
-				this.properties = properties;
+				properties.add((Property) Runner.board.get(player.getLocation()));
 			}
 
 		public ArrayList<Card> getHand()

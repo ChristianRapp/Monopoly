@@ -1,8 +1,10 @@
 import java.util.*;
 
+import javax.swing.plaf.synth.SynthSpinnerUI;
+
 public class Runner
 	{
-
+		static Scanner userInput = new Scanner(System.in);
 		static ArrayList<Square> board = new ArrayList<Square>();
 		static ArrayList<Player> players = new ArrayList<Player>();
 		static boolean isPlaying =true;
@@ -13,7 +15,7 @@ public class Runner
 				
 				while(isPlaying == true)
 					{
-						Scanner playerInput = new Scanner(System.in);
+						
 						int d1 = players.get(0).rollDice1();
 						int d2 = players.get(0).rollDice2();
 						System.out.println("You rolled a "+ d1+" and a "+d2 + " for a total of "+(d1+d2));
@@ -29,7 +31,7 @@ public class Runner
 						
 						
 						
-						playerInput.nextLine();
+						
 						
 					}
 				
@@ -37,6 +39,7 @@ public class Runner
 		
 		public static void menu()
 		{
+			Scanner playerInput = new Scanner(System.in);
 			System.out.println("What would you like to do?");
 			int i =1;
 			if(board.get(players.get(0).getLocation()) instanceof ColoredProperty && ((Property) board.get(players.get(0).getLocation())).isOwned() == false)
@@ -48,11 +51,52 @@ public class Runner
 			
 			else if(board.get(players.get(0).getLocation()) instanceof NotColored && ((Property) board.get(players.get(0).getLocation())).isOwned() == false)
 				{
-				System.out.println(i+") Purchase this"+board.get(players.get(0).getLocation()).getName() +" for "+ ((Property) board.get(players.get(0).getLocation())).getBuyPrice());
+				System.out.println(i+") Purchase this "+board.get(players.get(0).getLocation()).getName() +" for "+ ((Property) board.get(players.get(0).getLocation())).getBuyPrice());
 				i++;
 				}
 			
-				for(Property )
+			System.out.println(i+") Roll dice and move again");
+			
+			switch(playerInput.nextInt())
+			{
+				case 1:
+				{
+				if(board.get(players.get(0).getLocation()) instanceof Property && ((Property) board.get(players.get(0).getLocation())).isOwned() == false)
+					{
+					((Property) board.get(players.get(0).getLocation())).setOwner(players.get(0));
+					((Property) board.get(players.get(0).getLocation())).setOwned(true);
+					players.get(0).setBalance(players.get(0).getBalance()-((Property) board.get(players.get(0).getLocation())).getBuyPrice());
+					players.get(0).setProperties((Property) board.get(players.get(0).getLocation()), players.get(0));
+					}
+				else
+					{
+					
+					}
+				menu();
+				break;
+				}
+				default:
+				{
+					menu();
+				}
+			}
+				System.out.println();
+				System.out.println("Here are "+players.get(0).getName()+ "'s properties");
+				if(!(players.get(0).getProperties().size() == 0))
+				{
+					for(Property fred: players.get(0).getProperties())
+						{
+						System.out.print("|"+fred.getName()+"|");
+	
+						}
+				}
+				else
+				{
+					System.out.println(players.get(0).getName()+" has no properties");
+				}
+				
+			System.out.println();
+			System.out.println();
 			
 			
 			
@@ -67,7 +111,7 @@ public class Runner
 			board.add(new CommunityChest("Community Chest 1"));
 			board.add(new ColoredProperty(60, 4,  0, "Dagobah", "Yoda's Hut"));
 			
-			board.add(new Tax("Docking tax", 25));
+			board.add(new Tax("Docking tax", 25)); 
 			board.add(new Railroad(200, 0,"Tie Fighter"));
 			board.add(new ColoredProperty(100, 6,  0, "Hoth", "Echo Base"));
 			board.add(new Chance("Chance 1"));
