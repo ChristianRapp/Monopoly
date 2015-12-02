@@ -12,33 +12,38 @@ public class Runner
 			{
 				addProperty();
 				addPlayers();
-				
 				while(isPlaying == true)
-					{
-						
-						int d1 = players.get(0).rollDice1();
-						int d2 = players.get(0).rollDice2();
-						System.out.println("You rolled a "+ d1+" and a "+d2 + " for a total of "+(d1+d2));
-						players.get(0).doTurn(players.get(0), d1, d2);
-						System.out.println("You are now on " + board.get(players.get(0).getLocation()).getName());
-						
-						if(board.get(players.get(0).getLocation()) instanceof Tax)
-							{
-							Tax.payTax(((Tax) board.get(players.get(0).getLocation())).getTaxAmount(), players.get(0));
-							}
-						System.out.println();
-						menu();
-						
-						
-						
-						
-						
-					}
+				{
+					playGame();	
+				}
+				
+				
 				
 			}
 		
+		public static void playGame()
+		{
+				
+				int d1 = players.get(0).rollDice1();
+				int d2 = players.get(0).rollDice2();
+				System.out.println("You rolled a "+ d1+" and a "+d2 + " for a total of "+(d1+d2));
+				players.get(0).doTurn(players.get(0), d1, d2);
+				System.out.println("You are now on " + board.get(players.get(0).getLocation()).getName());
+				
+				if(board.get(players.get(0).getLocation()) instanceof Tax)
+					{
+					Tax.payTax(((Tax) board.get(players.get(0).getLocation())).getTaxAmount(), players.get(0));
+					System.out.println();
+					}
+				System.out.println();
+				menu();
+				
+				
+		}
+		
 		public static void menu()
 		{
+			printProperty();
 			Scanner playerInput = new Scanner(System.in);
 			System.out.println("What would you like to do?");
 			int i =1;
@@ -56,6 +61,7 @@ public class Runner
 				}
 			
 			System.out.println(i+") Roll dice and move again");
+			System.out.println("3) Print money");
 			
 			switch(playerInput.nextInt())
 			{
@@ -67,41 +73,52 @@ public class Runner
 					((Property) board.get(players.get(0).getLocation())).setOwned(true);
 					players.get(0).setBalance(players.get(0).getBalance()-((Property) board.get(players.get(0).getLocation())).getBuyPrice());
 					players.get(0).setProperties((Property) board.get(players.get(0).getLocation()), players.get(0));
+					menu();
 					}
 				else
 					{
-					
+					playGame();
 					}
-				menu();
+				
 				break;
+				}
+				case 2:
+				{
+					playGame();
+				}
+				case 3:
+				{
+					System.out.println(players.get(0).getBalance());
 				}
 				default:
 				{
 					menu();
 				}
 			}
-				System.out.println();
-				System.out.println("Here are "+players.get(0).getName()+ "'s properties");
-				if(!(players.get(0).getProperties().size() == 0))
-				{
-					for(Property fred: players.get(0).getProperties())
-						{
-						System.out.print("|"+fred.getName()+"|");
-	
-						}
-				}
-				else
-				{
-					System.out.println(players.get(0).getName()+" has no properties");
-				}
+			//printProperty();
 				
-			System.out.println();
-			System.out.println();
 			
 			
 			
 		}
 		
+		public static void printProperty()
+		{
+			if(!(players.get(0).getProperties().size() == 0))
+			{
+				System.out.println("Here are "+players.get(0).getName()+ "'s properties");
+				for(Property fred: players.get(0).getProperties())
+					{
+					System.out.print("|"+fred.getName()+"|");
+
+					}
+			}
+			else
+			{
+				System.out.println(players.get(0).getName()+" has no properties");
+			}
+			System.out.println();
+		}
 		
 		public static void addProperty()
 		{

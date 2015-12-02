@@ -56,6 +56,7 @@ public class Player
 			if((temp + d1 + d2)>= 40)
 			{
 				player.setBalance(player.getBalance()+200);
+				System.out.println("You passed go and gained 200");
 			}
 			int pos = (temp + d1 + d2)%40;
 			player.setLocation(pos);
