@@ -9,11 +9,22 @@ public class Tax extends NotPurchasable
 		taxAmount = t;
 		}
 		
-		public void payTax(int taxAmount, Object player)
+		public static void payTax(int taxAmount, Player player)
 		{
-			//player money -= taxAmount
+			
+			player.setBalance(player.getBalance()-taxAmount);
 			
 		}
+
+		public int getTaxAmount()
+			{
+				return taxAmount;
+			}
+
+		public void setTaxAmount(int taxAmount)
+			{
+				this.taxAmount = taxAmount;
+			}
 		
 		
 	}

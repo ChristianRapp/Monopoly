@@ -13,25 +13,50 @@ public class Runner
 				
 				while(isPlaying == true)
 					{
+						Scanner playerInput = new Scanner(System.in);
 						int d1 = players.get(0).rollDice1();
 						int d2 = players.get(0).rollDice2();
 						System.out.println("You rolled a "+ d1+" and a "+d2 + " for a total of "+(d1+d2));
 						players.get(0).doTurn(players.get(0), d1, d2);
 						System.out.println("You are now on " + board.get(players.get(0).getLocation()).getName());
 						
-						if(board.get(players.get(0).getLocation()) instanceof Property)
-							{
-							System.out.println("Would you like to purchase this property for "+ board.get(0).getRent());
-							}
-						
 						if(board.get(players.get(0).getLocation()) instanceof Tax)
 							{
-								
+							Tax.payTax(((Tax) board.get(players.get(0).getLocation())).getTaxAmount(), players.get(0));
 							}
+						System.out.println();
+						menu();
+						
+						
+						
+						playerInput.nextLine();
 						
 					}
 				
 			}
+		
+		public static void menu()
+		{
+			System.out.println("What would you like to do?");
+			int i =1;
+			if(board.get(players.get(0).getLocation()) instanceof ColoredProperty && ((Property) board.get(players.get(0).getLocation())).isOwned() == false)
+				
+				{
+				System.out.println(i+") Purchase this property for "+ ((Property) board.get(players.get(0).getLocation())).getBuyPrice());
+				i++;
+				}
+			
+			else if(board.get(players.get(0).getLocation()) instanceof NotColored && ((Property) board.get(players.get(0).getLocation())).isOwned() == false)
+				{
+				System.out.println(i+") Purchase this"+board.get(players.get(0).getLocation()).getName() +" for "+ ((Property) board.get(players.get(0).getLocation())).getBuyPrice());
+				i++;
+				}
+			
+				for(Property )
+			
+			
+			
+		}
 		
 		
 		public static void addProperty()
