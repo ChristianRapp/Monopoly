@@ -9,7 +9,7 @@ public class Runner
 		static boolean isPlaying =true;
 		public static void main(String[] args)
 			{
-				
+				mainMenu();
 				addPlayers();
 				while(isPlaying == true)
 				{
