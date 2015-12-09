@@ -4,16 +4,20 @@ public class Runner
 	{
 		static Scanner userInput = new Scanner(System.in);
 		static int playerCount;
+		static int currentPlayer =-1;
 		static ArrayList<Square> board = new ArrayList<Square>();
 		static ArrayList<Player> players = new ArrayList<Player>();
 		static boolean isPlaying =true;
 		public static void main(String[] args)
 			{
 				mainMenu();
-				addPlayers();
+				addPlayers(playerCount);
 				while(isPlaying == true)
 				{
-					playGame();	
+					currentPlayer++;
+					currentPlayer%=(playerCount-1);
+					playGame();
+					
 				}
 				
 				
@@ -47,17 +51,12 @@ public class Runner
 		public static void playGame()
 		{
 				
-				int d1 = players.get(0).rollDice1();
-				int d2 = players.get(0).rollDice2();
-				System.out.println("You rolled a "+ d1+" and a "+d2 + " for a total of "+(d1+d2));
-				players.get(0).doTurn(players.get(0), d1, d2);
-				System.out.println("You are now on " + board.get(players.get(0).getLocation()).getName());
-				
-				if(board.get(players.get(0).getLocation()) instanceof Tax)
-					{
-					Tax.payTax(((Tax) board.get(players.get(0).getLocation())).getTaxAmount(), players.get(0));
-					System.out.println();
-					}
+				int d1 = players.get(currentPlayer).rollDice1();
+				int d2 = players.get(currentPlayer).rollDice2();
+				System.out.println(players.get(currentPlayer).getName()+" rolled a "+ d1+" and a "+d2 + " for a total of "+(d1+d2));
+				players.get(currentPlayer).doTurn(players.get(0), d1, d2);
+				System.out.println(players.get(currentPlayer).getName()+" is now on " + board.get(players.get(currentPlayer).getLocation()).getName());
+
 				System.out.println();
 				menu();
 				
@@ -66,58 +65,72 @@ public class Runner
 		
 		public static void menu()
 		{
+			
+			if(board.get(players.get(currentPlayer).getLocation()) instanceof Tax)
+				{
+				Tax.payTax(((Tax) board.get(players.get(currentPlayer).getLocation())).getTaxAmount(), players.get(currentPlayer));
+				System.out.println();
+				}
+			
 			printProperty();
 			Scanner playerInput = new Scanner(System.in);
 			System.out.println("What would you like to do?");
 			int i =1;
-			if(board.get(players.get(0).getLocation()) instanceof ColoredProperty && ((Property) board.get(players.get(0).getLocation())).isOwned() == false)
+			if(board.get(players.get(currentPlayer).getLocation()) instanceof ColoredProperty && ((Property) board.get(players.get(currentPlayer).getLocation())).isOwned() == false)
 				
 				{
-				System.out.println(i+") Purchase this property for "+ ((Property) board.get(players.get(0).getLocation())).getBuyPrice());
+				System.out.println(i+") Purchase this property for "+ ((Property) board.get(players.get(currentPlayer).getLocation())).getBuyPrice());
 				i++;
 				}
 			
-			else if(board.get(players.get(0).getLocation()) instanceof NotColored && ((Property) board.get(players.get(0).getLocation())).isOwned() == false)
+			else if(board.get(players.get(currentPlayer).getLocation()) instanceof NotColored && ((Property) board.get(players.get(currentPlayer).getLocation())).isOwned() == false)
 				{
-				System.out.println(i+") Purchase this "+board.get(players.get(0).getLocation()).getName() +" for "+ ((Property) board.get(players.get(0).getLocation())).getBuyPrice());
+				System.out.println(i+") Purchase this "+board.get(players.get(currentPlayer).getLocation()).getName() +" for "+ ((Property) board.get(players.get(currentPlayer).getLocation())).getBuyPrice());
 				i++;
 				}
 			
-			System.out.println(i+") Roll dice and move again");
-			System.out.println("3) Print money");
-			
-			switch(playerInput.nextInt())
-			{
-				case 1:
+			System.out.println(i+") End your turn");
+			System.out.println((i+1)+") Print money");
+			int playerChoice = userInput.nextInt();
+			//switch(playerInput.nextInt())
+			//{
+				if(playerChoice == 1)     //case 1:
 				{
-				if(board.get(players.get(0).getLocation()) instanceof Property && ((Property) board.get(players.get(0).getLocation())).isOwned() == false)
+				if(board.get(players.get(currentPlayer).getLocation()) instanceof Property && ((Property) board.get(players.get(currentPlayer).getLocation())).isOwned() == false)
 					{
-					((Property) board.get(players.get(0).getLocation())).setOwner(players.get(0));
-					((Property) board.get(players.get(0).getLocation())).setOwned(true);
-					players.get(0).setBalance(players.get(0).getBalance()-((Property) board.get(players.get(0).getLocation())).getBuyPrice());
-					players.get(0).setProperties((Property) board.get(players.get(0).getLocation()), players.get(0));
+					((Property) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer));
+					((Property) board.get(players.get(currentPlayer).getLocation())).setOwned(true);
+					players.get(currentPlayer).setBalance(players.get(currentPlayer).getBalance()-((Property) board.get(players.get(currentPlayer).getLocation())).getBuyPrice());
+					players.get(currentPlayer).setProperties((Property) board.get(players.get(currentPlayer).getLocation()), players.get(currentPlayer));
 					menu();
 					}
 				else
 					{
-					playGame();
+						
 					}
 				
-				break;
+				//break;
 				}
-				case 2:
+				
+				
+				if(playerChoice== i)//case 2:
 				{
+					currentPlayer++;
 					playGame();
 				}
-				case 3:
+				else if(playerChoice == i+1)//case 3:
 				{
-					System.out.println(players.get(0).getBalance());
+					System.out.println(players.get(currentPlayer).getBalance());
 				}
-				default:
-				{
-					menu();
-				}
-			}
+//				default:
+//				{
+//					menu();
+//				}
+				else
+					{
+						menu();
+					}
+			//}
 			//printProperty();
 				
 			
@@ -127,10 +140,10 @@ public class Runner
 		
 		public static void printProperty()
 		{
-			if(!(players.get(0).getProperties().size() == 0))
+			if(!(players.get(currentPlayer).getProperties().size() == 0))
 			{
-				System.out.println("Here are "+players.get(0).getName()+ "'s properties");
-				for(Property fred: players.get(0).getProperties())
+				System.out.println("Here are "+players.get(currentPlayer).getName()+ "'s properties");
+				for(Property fred: players.get(currentPlayer).getProperties())
 					{
 					System.out.print("|"+fred.getName()+"|");
 
@@ -138,7 +151,7 @@ public class Runner
 			}
 			else
 			{
-				System.out.println(players.get(0).getName()+" has no properties");
+				System.out.println(players.get(currentPlayer).getName()+" has no properties");
 			}
 			System.out.println();
 		}
@@ -249,10 +262,15 @@ public class Runner
 					
 			}
 		
-		public static void addPlayers()
+		public static void addPlayers(int a)
 		{
 		
-			players.add(new Player("Christian"));
+			for(int i=0; i<a; i++)
+				{
+				String name =userInput.next();
+				players.add(new Player(name));
+				}
+			
 			
 		}
 
