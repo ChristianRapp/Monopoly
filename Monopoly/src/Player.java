@@ -10,6 +10,8 @@ public class Player
 		private int turnNumber;
 		private boolean inJail;
 		private int location;
+		private boolean backwards;
+		private int turnInJail;
 		
 		public Player(String n)
 		{
@@ -17,6 +19,8 @@ public class Player
 			balance = 1500;
 			inJail = false;
 			location = 0;
+			backwards = false;
+			turnInJail =0;
 		}
 		
 		public void useCard()
@@ -53,15 +57,39 @@ public class Player
 		public void doTurn(Player player, int d1, int d2)
 		{
 			int temp = player.getLocation();
-			if((temp + d1 + d2)>= 40)
-			{
-				player.setBalance(player.getBalance()+200);
-				System.out.println("You passed go and gained 200");
-			}
-			int pos = (temp + d1 + d2)%40;
-			player.setLocation(pos);
+			if(player.isBackwards()==false)
+				{
+					if((temp + d1 + d2)>= 40)
+						{
+							player.setBalance(player.getBalance()+200);
+							System.out.println("You passed go and gained 200");
+						}
+					int pos = (temp + d1 + d2)%40;
+					player.setLocation(pos);
+				}
+			if(player.isBackwards()==true)
+				{
+					if((temp + d1 + d2)>= 40)
+						{
+							player.setBalance(player.getBalance()+200);
+							System.out.println("You passed go and gained 200");
+						}
+					int pos = ((temp + d1 + d2)+40)%40;
+					player.setLocation(pos);
+				}
+			
 			
 		}
+
+		public boolean isBackwards()
+			{
+				return backwards;
+			}
+
+		public void setBackwards(boolean backwards)
+			{
+				this.backwards = backwards;
+			}
 
 		public int getBalance()
 			{
@@ -132,5 +160,16 @@ public class Player
 			{
 				this.name = name;
 			}
+
+		public int getTurnInJail()
+			{
+				return turnInJail;
+			}
+
+		public void setTurnInJail(int turnInJail)
+			{
+				this.turnInJail = turnInJail;
+			}
+		
 		
 	}

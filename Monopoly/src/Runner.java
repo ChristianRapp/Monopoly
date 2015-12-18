@@ -15,7 +15,7 @@ public class Runner
 				while(isPlaying == true)
 				{
 					currentPlayer++;
-					currentPlayer%=(playerCount-1);
+					currentPlayer%=(playerCount);
 					playGame();
 					
 				}
@@ -42,29 +42,103 @@ public class Runner
 					addStarWarsProperty();		
 					}
 			}
-			
-			
-			
-			
+
 		}
 		
 		public static void playGame()
 		{
+			if(players.get(currentPlayer).isBackwards() == false)
+				{
+					//int d1 = players.get(currentPlayer).rollDice1();
+					int d1 = 5;
+					//int d2 = players.get(currentPlayer).rollDice2();
+					int d2 =5;
+					if(board.get(players.get(currentPlayer).getLocation()) instanceof Jail && players.get(currentPlayer).isInJail() ==true)
+						{
+						if(d1 == d2||players.get(currentPlayer).getTurnInJail() == 3)
+							{
+								System.out.println(players.get(currentPlayer).getName()+" rolled a "+ d1+" and a "+d2 + " for a total of "+(d1+d2));
+								System.out.println("You rolled double and now you're out of jail!");
+								players.get(currentPlayer).doTurn(players.get(currentPlayer), (d1), (d2));
+								System.out.println(players.get(currentPlayer).getName()+" is now on " + board.get(players.get(currentPlayer).getLocation()).getName());
+								System.out.println();
+								menu();
+							}
+						else
+							{
+								System.out.println("Sorry you didn't get out of jail this turn");
+								players.get(currentPlayer).setTurnInJail(players.get(currentPlayer).getTurnInJail() + 1);
+								menu();
+							}
+						}
+					else
+						{
+							System.out.println(players.get(currentPlayer).getName()+" rolled a "+ d1+" and a "+d2 + " for a total of "+(d1+d2));
+							players.get(currentPlayer).doTurn(players.get(currentPlayer), (d1), (d2));
+							System.out.println(players.get(currentPlayer).getName()+" is now on " + board.get(players.get(currentPlayer).getLocation()).getName());
+							System.out.println();
+							menu();
+						}
+					
+					}
 				
-				int d1 = players.get(currentPlayer).rollDice1();
-				int d2 = players.get(currentPlayer).rollDice2();
-				System.out.println(players.get(currentPlayer).getName()+" rolled a "+ d1+" and a "+d2 + " for a total of "+(d1+d2));
-				players.get(currentPlayer).doTurn(players.get(0), d1, d2);
-				System.out.println(players.get(currentPlayer).getName()+" is now on " + board.get(players.get(currentPlayer).getLocation()).getName());
-
-				System.out.println();
-				menu();
+			else
+				{
+				//int d1 = players.get(currentPlayer).rollDice1();
+					int d1 = 5;
+				//int d2 = players.get(currentPlayer).rollDice2();
+					int d2 =5;
+				if(board.get(players.get(currentPlayer).getLocation()) instanceof Jail && players.get(currentPlayer).isInJail() ==true)
+					{
+					if(d1 == d2||players.get(currentPlayer).getTurnInJail() == 3)
+						{
+							System.out.println(players.get(currentPlayer).getName()+" rolled a "+ d1+" and a "+d2 + " for a total of "+(d1+d2));
+							System.out.println("You rolled double and now you're out of jail!");
+							players.get(currentPlayer).doTurn(players.get(currentPlayer), (-d1), (-d2));
+							System.out.println(players.get(currentPlayer).getName()+" is now on " + board.get(players.get(currentPlayer).getLocation()).getName());
+							System.out.println();
+							menu();
+						}
+					else
+						{
+							System.out.println("Sorry you didn't get out of jail this turn");
+							players.get(currentPlayer).setTurnInJail(players.get(currentPlayer).getTurnInJail() + 1);
+							menu();
+						}
+					}
+				else
+					{
+						System.out.println(players.get(currentPlayer).getName()+" rolled a "+ d1+" and a "+d2 + " for a total of "+(d1+d2));
+						players.get(currentPlayer).doTurn(players.get(currentPlayer), (-d1), (-d2));
+						System.out.println(players.get(currentPlayer).getName()+" is now on " + board.get(players.get(currentPlayer).getLocation()).getName());
+						System.out.println();
+						menu();	
+					}
 				
-				
+				}
 		}
 		
 		public static void menu()
 		{
+			
+			if(board.get(players.get(currentPlayer).getLocation()) instanceof Jail && players.get(currentPlayer).isBackwards() ==false && players.get(currentPlayer).isInJail() ==false)
+				{
+					players.get(currentPlayer).setBackwards(true);
+					System.out.println("You landed on jail! Now you're moving backwards!");
+				}
+			else if(board.get(players.get(currentPlayer).getLocation()) instanceof Jail && players.get(currentPlayer).isBackwards() ==true && players.get(currentPlayer).isInJail() ==false)
+				{
+					players.get(currentPlayer).setBackwards(false);
+					System.out.println("You landed on jail! Now you're moving forwards!");
+				}
+			
+//			if(board.get(players.get(currentPlayer).getLocation()) instanceof GoToJail)
+//				{
+//					players.get(currentPlayer).setLocation(9);
+//					System.out.println("You're now in jail! In order to get out you must roll doubles");
+//				}
+			
+			
 			
 			if(board.get(players.get(currentPlayer).getLocation()) instanceof Tax)
 				{
@@ -92,9 +166,8 @@ public class Runner
 			System.out.println(i+") End your turn");
 			System.out.println((i+1)+") Print money");
 			int playerChoice = userInput.nextInt();
-			//switch(playerInput.nextInt())
-			//{
-				if(playerChoice == 1)     //case 1:
+			
+				if(playerChoice == 1)     
 				{
 				if(board.get(players.get(currentPlayer).getLocation()) instanceof Property && ((Property) board.get(players.get(currentPlayer).getLocation())).isOwned() == false)
 					{
@@ -109,29 +182,27 @@ public class Runner
 						
 					}
 				
-				//break;
+				
 				}
 				
 				
-				if(playerChoice== i)//case 2:
+				if(playerChoice== i)
 				{
 					currentPlayer++;
+					currentPlayer%=(playerCount);
 					playGame();
 				}
-				else if(playerChoice == i+1)//case 3:
+				else if(playerChoice == i+1)
 				{
 					System.out.println(players.get(currentPlayer).getBalance());
+					menu();
 				}
-//				default:
-//				{
-//					menu();
-//				}
+//				
 				else
 					{
-						menu();
+					menu();
 					}
-			//}
-			//printProperty();
+			
 				
 			
 			
@@ -267,6 +338,7 @@ public class Runner
 		
 			for(int i=0; i<a; i++)
 				{
+				System.out.println("What is player " +(i+1)+ "'s name");
 				String name =userInput.next();
 				players.add(new Player(name));
 				}
